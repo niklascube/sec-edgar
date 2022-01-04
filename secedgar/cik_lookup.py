@@ -31,8 +31,7 @@ def get_cik_map():
     """
     response = requests.get("https://www.sec.gov/files/company_tickers.json")
     json_response = response.json()
-    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
-                  if v[key] is not None}
+    return {key: {(v[key].upper() if v[key] is not None else ""): str(v["cik_str"]) for v in json_response.values()}
             for key in ("ticker", "title")}
 
 
